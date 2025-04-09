@@ -1,0 +1,16 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow authenticated users to read telemetry data
+    match /telemetry/{document=**} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only allow reads, not writes
+    }
+    
+    // Default deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+} 
