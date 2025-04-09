@@ -1,12 +1,12 @@
 export const batteryThresholds = {
   voltage: {
     good: 3.7, // Voltage above this is considered good
-    warning: 3.0, // Voltage between this and good is a warning
+    warning: 3.0, // Voltage below this is a warning
     bad: 2.5 // Voltage below this is bad
   },
   temperature: {
     good: 35, // Temperature below this is good
-    warning: 45, // Temperature between this and good is a warning
+    warning: 45, // Temperature below this is a warning
     bad: 55 // Temperature above this is bad
   },
   stateOfCharge: {
@@ -16,7 +16,7 @@ export const batteryThresholds = {
   },
   current: {
     good: 90, // Current above this is good
-    warning: 50, // Current between this and good is a warning
+    warning: 50, // Current below this is a warning
     bad: 20 // Current below this is bad
   }
 }; 
