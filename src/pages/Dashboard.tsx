@@ -4,7 +4,8 @@ import {
   Paper, 
   Typography, 
   LinearProgress,
-  useTheme
+  useTheme,
+  Chip
 } from '@mui/material';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -157,36 +158,25 @@ export default function Dashboard() {
               gridTemplateColumns: { xs: '1fr 1fr', sm: '1fr 1fr 1fr', md: '1fr 1fr 1fr 1fr' },
               gap: 2
             }}>
-              {[
-                { name: 'Battery Overvoltage', key: 'batteryOvervoltage' },
-                { name: 'Battery Undervoltage', key: 'batteryUndervoltage' },
-                { name: 'Motor Overheating', key: 'motorOverheating' },
-                { name: 'Controller Error', key: 'controllerError' },
-                { name: 'Throttle Sensor Mismatch', key: 'throttleSensorMismatch' },
-                { name: 'Brake Sensor Mismatch', key: 'brakeSensorMismatch' },
-                { name: 'IMU Error', key: 'imuError' },
-                { name: 'GPS Error', key: 'gpsError' },
-                { name: 'CAN Bus Error', key: 'canBusError' },
-                { name: 'System Error', key: 'systemError' }
-              ].map((error) => (
-                <Box key={error.key}>
+              {telemetryData?.errors && Object.entries(telemetryData.errors).map(([key, value]) => (
+                <Box key={key}>
                   <Box sx={{ 
                     display: 'flex', 
                     alignItems: 'center',
                     p: 1,
                     borderRadius: 1,
-                    bgcolor: (telemetryData?.errors?.[error.key as keyof typeof telemetryData.errors] ?? false) ? 'error.light' : 'success.light',
-                    color: (telemetryData?.errors?.[error.key as keyof typeof telemetryData.errors] ?? false) ? 'error.contrastText' : 'success.contrastText'
+                    bgcolor: value ? 'error.light' : 'success.light',
+                    color: value ? 'error.contrastText' : 'success.contrastText'
                   }}>
                     <Box sx={{ 
                       width: 12, 
                       height: 12, 
                       borderRadius: '50%', 
-                      bgcolor: (telemetryData?.errors?.[error.key as keyof typeof telemetryData.errors] ?? false) ? 'error.main' : 'success.main',
+                      bgcolor: value ? 'error.main' : 'success.main',
                       mr: 1
                     }} />
                     <Typography variant="body2">
-                      {error.name}
+                      {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
                     </Typography>
                   </Box>
                 </Box>

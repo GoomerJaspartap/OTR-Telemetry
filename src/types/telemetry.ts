@@ -85,16 +85,7 @@ export interface TelemetryData {
   };
   batteryPacks: BatteryPack[];
   errors: {
-    batteryOvervoltage: boolean;
-    batteryUndervoltage: boolean;
-    motorOverheating: boolean;
-    controllerError: boolean;
-    throttleSensorMismatch: boolean;
-    brakeSensorMismatch: boolean;
-    imuError: boolean;
-    gpsError: boolean;
-    canBusError: boolean;
-    systemError: boolean;
+    [key: string]: boolean;
   };
 }
 
